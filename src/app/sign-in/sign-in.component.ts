@@ -19,7 +19,6 @@ export class SignInComponent implements OnInit {
     console.log("createUser CALLED");
     let password = (<HTMLInputElement>document.getElementById("password")).value;
     let result = this.checkPassword(password);
-    console.log(result);
     if(result===passwordEnum.ok){
       let username = (<HTMLInputElement>document.getElementById("username")).value;
       let email = (<HTMLInputElement>document.getElementById("email")).value;
