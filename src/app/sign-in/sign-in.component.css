@@ -1,0 +1,12 @@
+#passwordAlertWarning{
+    display: none;
+}
+
+#passwordAlertDanger{
+    display: none;
+    
+}
+
+.alertText{
+    font-size: 12px;
+}

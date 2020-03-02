@@ -9,38 +9,40 @@ import { UserService } from '../user/user.service';
   providers: [UserService]
 })
 export class SignInComponent implements OnInit {
+  
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    console.log("signin init");
+    
   }
 
   createUser(){
-    console.log("createUser CALLED");
+    let passwordAlertDanger= (<HTMLInputElement>document.getElementById("passwordAlertDanger"));
+    let passwordAlertWarning= (<HTMLInputElement>document.getElementById("passwordAlertWarning"));
+    let username = (<HTMLInputElement>document.getElementById("username")).value;
+    let email = (<HTMLInputElement>document.getElementById("email")).value;
+    let displayname = "";
+    let isAdmin = false;
     let password = (<HTMLInputElement>document.getElementById("password")).value;
     let result = this.checkPassword(password);
     if(result===passwordEnum.ok){
-      let username = (<HTMLInputElement>document.getElementById("username")).value;
-      let email = (<HTMLInputElement>document.getElementById("email")).value;
-      let displayname = "";
-      let isAdmin = false;
       let user= new User(username,displayname,password,email,isAdmin);
       this.userService.createUser(user);
     }else if (result===passwordEnum.notMatching){
-      console.log("Password not matching");
+      passwordAlertWarning.style.display="block";
+      passwordAlertDanger.style.display="none";
     }else if (result===passwordEnum.badPassword){
-      console.log("Bad password");
+      passwordAlertWarning.style.display="none";
+      passwordAlertDanger.style.display="block";
     }
     
   }
 
   private checkPassword(password: string): passwordEnum{
     let passwordConfirm = (<HTMLInputElement>document.getElementById("passwordConfirm")).value;
-    console.log(password ,"+", passwordConfirm)
     if (password===passwordConfirm){
       let regex= new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
       let bool = regex.test(password);
-      console.log(bool)
       if(bool===true){
       return passwordEnum.ok;
       }else{

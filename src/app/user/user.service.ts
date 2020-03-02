@@ -15,7 +15,6 @@ export class UserService {
 
    createUser(user : User){
      let userHeaders= new Headers({'Content-Type': 'application/json'});
-     console.log("request sent");
      return this.http
      .post(this.apiSignInUrl, JSON.stringify(user),{headers: userHeaders})
      .toPromise()

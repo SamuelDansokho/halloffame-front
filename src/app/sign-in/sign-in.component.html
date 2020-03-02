@@ -16,6 +16,12 @@
             <input type="password" class="form-control" id="password" placeholder="Mot de Passe">
             <small class="text-secondary">Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial</small>
           </div>
+          <div class="alert alert-warning" id="passwordAlertWarning"  role="alert">
+            <p class="alertText">Les deux mots de passes ne correspondent pas</p>
+          </div>
+          <div class="alert alert-danger" id="passwordAlertDanger"  role="alert">
+            <p class="alertText">Votre mot de passe ne correspond pas au modèle requis. Rappel: Le mot de passe doit contenir au moins 8 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial </p>
+          </div>
           <div class="form-group">
             <label for="passwordConfirm">Confirmation Mot de passe</label>
             <input type="password" class="form-control" id="passwordConfirm" placeholder="Confirmer le mot de passe">
