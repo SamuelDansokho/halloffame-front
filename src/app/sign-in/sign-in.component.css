@@ -10,3 +10,11 @@
 .alertText{
     font-size: 12px;
 }
+
+#emailAlert{
+    display: none;
+}
+
+#usernameAlert{
+    display: none;
+}

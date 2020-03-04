@@ -3,35 +3,39 @@ import { Http, Response } from "@angular/http";
 import {User} from './user'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Headers, RequestOptions } from '@angular/http';
+import 'rxjs/add/operator/map'
 
 @Injectable()
 export class UserService {
 
  private apiSignInUrl = 'http://localhost:8080/user/create';
+ private status: CreationStatusEnum;
+
+ getStatus(){
+   return this.status;
+ }
 
 
   constructor(private http:Http) {
    }
 
-   createUser(user : User){
-     let userHeaders= new Headers({'Content-Type': 'application/json'});
+   createUserRequest(user : User){
+    const httpOptions = {
+      headers: new Headers({
+        'Content-Type':  'application/json'
+      }),
+      observe: 'response'
+  };
      return this.http
-     .post(this.apiSignInUrl, JSON.stringify(user),{headers: userHeaders})
-     .toPromise()
-     .then(response => response.json() as User[])
-     .catch(this.handleError);
+     .post(this.apiSignInUrl, JSON.stringify(user),httpOptions).map(response => response.json())
    }
-
-   private handleError(error: any): Promise<Array<any>> {
-    console.error('An error occurred', error);
-    return Promise.reject(error.message || error);
-    }
 
 
 }
 
 enum CreationStatusEnum {
   Created = "CREATED",
-  Already = "ALREADY_IN_DB",
+  UsernameAlready = "USERNAME_ALREADY_IN_BDD",
+  EmailAlready="MAIL_ALREADY_IN_BDD",
   Ko= "KO"
 }
